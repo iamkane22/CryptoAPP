@@ -74,7 +74,7 @@ final class CryptoCell: UITableViewCell {
         }
         
         func configure(coin: TitleSubtitleProtocol) {
-            coinIconImageView.image = coin.coinImageURL
+            coinIconImageView.image = UIImage(named: coin.coinImageURL)
             coinNameLabel.text = coin.nameCoin
             coinValueLabel.text = "$\(coin.valueCoin)"
             
