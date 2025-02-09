@@ -8,7 +8,7 @@
 import UIKit
 
 class BaseVC: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -20,5 +20,5 @@ class BaseVC: UIViewController {
     open func configureView() {}
     open func configureConstraint() {}
     open func configureTargets() {}
-
+    
 }

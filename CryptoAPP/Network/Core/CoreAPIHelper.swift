@@ -16,13 +16,13 @@ enum HttpMethods: String {
 
 
 enum BaseURL: String {
-    case tmdb = "https://api.themoviedb.org/3/"
+    case coingecko = "https://api.coingecko.com/api/v3/"
 }
 
 final class CoreAPIHelper {
     static let instance = CoreAPIHelper()
     private init() {}
-    private let baseURL = BaseURL.tmdb.rawValue
+    private let baseURL = BaseURL.coingecko.rawValue
     
     func makeURL(path: String) -> URL? {
         let urlString = baseURL + path
@@ -31,6 +31,6 @@ final class CoreAPIHelper {
     
     
     func makeHeader() -> [String: String] {
-        return [ "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYTY2MzU0ODBkMDNjNDExMzA2MzUwZDViZDM0YTdkYiIsIm5iZiI6MTczNDYzNzkzNy4zMTcsInN1YiI6IjY3NjQ3OTcxMjljODgyOTdhMTFmNjc3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Rl6HikoLc4mOcMFRmaGxqhvTyxLmLMZxPxFCae2hrNQ"]
+        return [:]
     }
 }

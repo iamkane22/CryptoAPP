@@ -8,7 +8,7 @@
 import UIKit.UINavigationController
 
 final class TabBarCoordinator: Coordinator {
-        
+    
     var parentCoordinator: Coordinator?
     var appCoordinator: AppCoordinator?
     var children: [Coordinator] = []
@@ -17,10 +17,10 @@ final class TabBarCoordinator: Coordinator {
     private var tabBarController = TabBarController()
     
     private var homeCoordinator: HomeCoordinator?
-//    private var upcomingCoordinator: UpComingCoordinator?
-//    private var searchCoordinator: SearchCooordinator?
-//    private var downloadCoordinator: DownloadCoordinator?
-//    
+    private var newsCoordinator: NewsCoordinator?
+    private var marketcoordinator: MarketCoordinator?
+    //    private var downloadCoordinator: DownloadCoordinator?
+    //
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -33,47 +33,45 @@ final class TabBarCoordinator: Coordinator {
         homeCoordinator?.start()
         homeCoordinator?.parentCoordinator = parentCoordinator
         
-        let homeTab = UITabBarItem()
-        homeTab.title = "Home"
-        homeTab.image = UIImage(systemName: "house")
-        homeTab.selectedImage = UIImage(systemName: "house.fill")
+        let homeTab = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
+        homeTab.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         homeNavigation.tabBarItem = homeTab
         
-        // search
+        // market
         
-        let searchNavigation = UINavigationController()
-//        searchCoordinator = SearchCooordinator(navigationController: searchNavigation)
-//        searchCoordinator?.start()
-//        searchCoordinator?.parentCoordinator = parentCoordinator
+        let marketNavigation = UINavigationController()
+        marketcoordinator = MarketCoordinator(navigationController: marketNavigation)
+        marketcoordinator?.start()
+        marketcoordinator?.parentCoordinator = parentCoordinator
         
-        let searchTab = UITabBarItem()
-        searchTab.title = "Search"
-        searchTab.image = UIImage(systemName: "magnifyingglass")
-        searchTab.selectedImage = UIImage(systemName: "magnifyingglass.fill")
-        searchNavigation.tabBarItem = searchTab
+        let marketTab = UITabBarItem()
+        marketTab.title = "Market"
+        marketTab.image = UIImage(systemName: "chart.bar")
+        marketTab.selectedImage = UIImage(systemName: "chart.bar.fill")
+        marketNavigation.tabBarItem = marketTab
         
-        // Download
+        // news
         
-        let downloadNavigation = UINavigationController()
-//        downloadCoordinator = DownloadCoordinator(navigationController: downloadNavigation)
-//        downloadCoordinator?.start()
-//        downloadCoordinator?.parentCoordinator = parentCoordinator
+        let newsNavigation = UINavigationController()
+        newsCoordinator = NewsCoordinator(navigationController: newsNavigation)
+        newsCoordinator?.start()
+        newsCoordinator?.parentCoordinator = parentCoordinator
         
-        let downloadTab = UITabBarItem()
-        downloadTab.title = "Download"
-        downloadTab.image = UIImage(systemName: "arrow.down.circle")
-        downloadTab.selectedImage = UIImage(systemName: "arrow.down.circle.fill")
-        downloadNavigation.tabBarItem = downloadTab
+        let newsTab = UITabBarItem()
+        newsTab.title = "CoinNews"
+        newsTab.image = UIImage(systemName: "newspaper")
+        newsTab.selectedImage = UIImage(systemName: "newspaper.fill")
+        newsNavigation.tabBarItem = newsTab
         
         navigationController.pushViewController(tabBarController, animated: true)
         
-
+        
         parentCoordinator?.children.append(homeCoordinator ?? HomeCoordinator(navigationController: UINavigationController()))
         
-//        parentCoordinator?.children.append(searchCoordinator ?? SearchCooordinator(navigationController: UINavigationController()))
-//        
-//        parentCoordinator?.children.append(downloadCoordinator ?? DownloadCoordinator(navigationController: UINavigationController()))
+        parentCoordinator?.children.append(marketcoordinator ?? MarketCoordinator(navigationController: UINavigationController()))
         
-        tabBarController.viewControllers = [homeNavigation, searchNavigation, downloadNavigation]
+        parentCoordinator?.children.append(newsCoordinator ?? NewsCoordinator(navigationController: UINavigationController()))
+        
+        tabBarController.viewControllers = [homeNavigation, marketNavigation, newsNavigation]
     }
 }
