@@ -77,9 +77,7 @@ final class HomeVM {
     func getCoins() -> Int {
         coinlist?.count ?? 0
     }
-    
     func getProtocol(item: Int) -> TitleSubtitleProtocol? {
-        print(coinlist ?? "empty")
         return coinlist?[item]
     }
     

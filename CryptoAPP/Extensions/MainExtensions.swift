@@ -209,7 +209,6 @@ extension UIImageView {
         guard let url = URL(string: url) else {return}
         print(#function, url)
         self.sd_setImage(with: url)
-        //    }
     }
 }
 extension UIEdgeInsets {

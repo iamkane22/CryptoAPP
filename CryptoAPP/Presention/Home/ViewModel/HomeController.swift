@@ -50,7 +50,11 @@ class HomeController: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        viewModel.startPolling()
+        viewModel.startPolling()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        viewModel.stopPolling()
     }
     
     override func configureView() {
