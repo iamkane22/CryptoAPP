@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6ECB327B2D596C7300F23203 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6ECB327A2D596C7300F23203 /* SDWebImage */; };
+		6ECB327D2D596C7300F23203 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6ECB327C2D596C7300F23203 /* SDWebImageMapKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		6EAE2DBB2D517D16001C9744 /* CryptoAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6ECB327D2D596C7300F23203 /* SDWebImageMapKit in Frameworks */,
+				6ECB327B2D596C7300F23203 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,8 @@
 			);
 			name = CryptoAPP;
 			packageProductDependencies = (
+				6ECB327A2D596C7300F23203 /* SDWebImage */,
+				6ECB327C2D596C7300F23203 /* SDWebImageMapKit */,
 			);
 			productName = CryptoAPP;
 			productReference = 6EAE2DBB2D517D16001C9744 /* CryptoAPP.app */;
@@ -107,6 +116,9 @@
 			);
 			mainGroup = 6EAE2DB22D517D16001C9744;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6EAE2DBC2D517D16001C9744 /* Products */;
 			projectDirPath = "";
@@ -331,6 +343,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.20.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6ECB327A2D596C7300F23203 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		6ECB327C2D596C7300F23203 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6EAE2DB32D517D16001C9744 /* Project object */;
 }

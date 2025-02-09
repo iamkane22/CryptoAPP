@@ -64,6 +64,7 @@ final class HomeVM {
             self.requestCallback?(.loaded)
             if let dto = dto {
                 self.coinMarketData = dto
+                self.coinlist = dto
                 self.requestCallback?(.succes)
                 print("Coin market data successfully fetched!", Date())
             } else if let error = error {

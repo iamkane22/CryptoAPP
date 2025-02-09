@@ -9,7 +9,7 @@ protocol TitleSubtitleProtocol {
     var valueCoin: String { get }
     var changeCoin: String { get }
     var marketCapCoin: String { get }
-    var coinImageURL: String? { get }
+    var coinImageURL: String { get }
 }
 
 

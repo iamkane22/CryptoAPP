@@ -53,6 +53,10 @@ struct CoinMarketDTOElement: Codable {
     }
 }
 extension CoinMarketDTOElement: TitleSubtitleProtocol {
+    var coinImageURL: String {
+        image ?? ""
+    }
+    
     var nameCoin: String {
         name ?? "not info"
     }
@@ -62,7 +66,7 @@ extension CoinMarketDTOElement: TitleSubtitleProtocol {
     }
     
     var changeCoin: String {
-        return String(format: "%.2f%%", priceChangePercentage24H ?? 0.0)
+        return String(priceChangePercentage24H ?? 0.0)
     }
     
     var marketCapCoin: String {
@@ -70,9 +74,6 @@ extension CoinMarketDTOElement: TitleSubtitleProtocol {
 
     }
     
-    var coinImageURL: String? {
-        image ?? nil
-    }
 }
 
 
