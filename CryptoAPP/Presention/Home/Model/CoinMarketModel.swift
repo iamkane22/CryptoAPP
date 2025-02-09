@@ -52,6 +52,29 @@ struct CoinMarketDTOElement: Codable {
         case priceChangePercentage7DInCurrency = "price_change_percentage_7d_in_currency"
     }
 }
+extension CoinMarketDTOElement: TitleSubtitleProtocol {
+    var nameCoin: String {
+        name ?? "not info"
+    }
+    
+    var valueCoin: String {
+        String(format: "%.2f $", currentPrice ?? 0.0)
+    }
+    
+    var changeCoin: String {
+        return String(format: "%.2f%%", priceChangePercentage24H ?? 0.0)
+    }
+    
+    var marketCapCoin: String {
+        return String(format: "%.0f $", Double(marketCap ?? 0))
+
+    }
+    
+    var coinImageURL: String? {
+        image ?? nil
+    }
+}
+
 
 struct Roi: Codable {
     let times: Double?

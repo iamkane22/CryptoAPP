@@ -8,18 +8,20 @@
 import Foundation
 
 final class HomeVM {
+    
+//    private var testList: [String] = ["asdas", "asdasfas", "asfasfs"]
     enum viewState {
         case loading
         case loaded
         case succes
         case error(String)
     }
-    
+    private(set) var coinlist: CoinMarketDTO?
     private var coinListUse : CoinListUseCase
     private var coinList : CoinListDTO?
     private var coinMarketUse: CoinMarketUseCase
     private var coinMarketData: CoinMarketDTO?
-    private var requestCallback : ((viewState) -> Void)?
+    var requestCallback : ((viewState) -> Void)?
     private var updateTimer: Timer?
     
     init() {
@@ -70,5 +72,22 @@ final class HomeVM {
             }
         }
     }
+    
+    func getCoins() -> Int {
+        coinlist?.count ?? 0
+    }
+    
+    func getProtocol(item: Int) -> TitleSubtitleProtocol? {
+        print(coinlist ?? "empty")
+        return coinlist?[item]
+    }
+    
+//    func getTestCount() -> Int {
+//        return testList.count
+//    }
+//    
+//    func testItem(index2: Int) -> String {
+//        return testList[index2]
+//    }
 }
 

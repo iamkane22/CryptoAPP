@@ -65,26 +65,34 @@ extension UITableView {
 }
 
 extension UITableView {
-    
-    public func dequeue<T: UITableViewCell>(cellClass: T.Type) -> T? {
-        return dequeueReusableCell(withIdentifier: cellClass.reuseIdentifier) as? T
+    private func reuseIndentifier<T>(for type: T.Type) -> String {
+        return String(describing: type)
     }
-    
-    public func dequeue<T: UITableViewCell>(
-        cellClass: T.Type,
-        forIndexPath indexPath: IndexPath
-    ) -> T {
-        guard let cell = dequeueReusableCell(
-            withIdentifier: cellClass.reuseIdentifier,
-            for: indexPath) as? T else {
-            fatalError(
-                "Error: cell with id: \(cellClass.reuseIdentifier) for indexPath: \(indexPath) is not \(T.self)")
+
+    public func register<T: UITableViewCell>(cell: T.Type) {
+        register(T.self, forCellReuseIdentifier: reuseIndentifier(for: cell))
+    }
+
+    public func register<T: UITableViewHeaderFooterView>(headerFooterView: T.Type) {
+        register(T.self, forHeaderFooterViewReuseIdentifier: reuseIndentifier(for: headerFooterView))
+    }
+
+    public func dequeueReusableCell<T: UITableViewCell>(for type: T.Type, for indexPath: IndexPath) -> T {
+        guard let cell = dequeueReusableCell(withIdentifier: reuseIndentifier(for: type), for: indexPath) as? T else {
+            fatalError("Failed to dequeue cell.")
         }
+
         return cell
     }
-    
-}
 
+    public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(for type: T.Type) -> T {
+        guard let view = dequeueReusableHeaderFooterView(withIdentifier: reuseIndentifier(for: type)) as? T else {
+            fatalError("Failed to dequeue footer view.")
+        }
+
+        return view
+    }
+}
 extension UICollectionReusableView {
     static var reuseIdentifier: String {
         return String(describing: Self.self)
