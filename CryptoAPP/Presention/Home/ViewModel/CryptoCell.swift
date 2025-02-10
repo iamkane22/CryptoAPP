@@ -83,7 +83,7 @@ final class CryptoCell: UITableViewCell {
                 coinChangeLabel.textColor = change > 0 ? .green : .red
             } else {
                 coinChangeLabel.text = "N/A"
-                coinChangeLabel.textColor = .gray
+                coinChangeLabel.textColor = .darkGray
             }
             marketCapLabel.text = "Market Cap: $\(coin.marketCapCoin)"
         }
@@ -91,10 +91,6 @@ final class CryptoCell: UITableViewCell {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             setupUI()
         }
-    
-//    func testCell(test: String) {
-//        coinNameLabel.text = test
-//    }
 }
 
 

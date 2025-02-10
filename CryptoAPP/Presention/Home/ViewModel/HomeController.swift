@@ -14,6 +14,13 @@ class HomeController: BaseVC {
         super.init(nibName: nil, bundle: nil)
     }
     
+//    private lazy var segmentedControl: UISegmentedControl = {
+//        let control = UISegmentedControl(items: ["Top Coins", "Top Gainers", "Top Losers"])
+//        control.selectedSegmentIndex = 0
+//        control.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
+//        return control
+//    }()
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -37,7 +44,6 @@ class HomeController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTable()
-        tableView.backgroundColor = .red
         configureViewModel()
         viewModel.getCoinMarketData()
     }
@@ -112,11 +118,6 @@ extension HomeController: UITableViewDataSource , UITableViewDelegate {
         guard let item = viewModel.getProtocol(item: indexPath.row) else { return UITableViewCell() }
         cell.configure(coin: item )
         return cell
-        
-        
-//        cell.testCell(test: viewModel.testItem(index2: indexPath.row))
-//        return cell
-//        
     }
     
     
