@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E84C41C2D59B8720038C34E /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 6E84C41B2D59B8720038C34E /* OpenAI */; };
+		6E84C41F2D59B8AC0038C34E /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6E84C41E2D59B8AC0038C34E /* OpenAISwift */; };
 		6ECB327B2D596C7300F23203 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6ECB327A2D596C7300F23203 /* SDWebImage */; };
 		6ECB327D2D596C7300F23203 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6ECB327C2D596C7300F23203 /* SDWebImageMapKit */; };
 /* End PBXBuildFile section */
@@ -41,7 +43,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E84C41F2D59B8AC0038C34E /* OpenAISwift in Frameworks */,
 				6ECB327D2D596C7300F23203 /* SDWebImageMapKit in Frameworks */,
+				6E84C41C2D59B8720038C34E /* OpenAI in Frameworks */,
 				6ECB327B2D596C7300F23203 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +91,8 @@
 			packageProductDependencies = (
 				6ECB327A2D596C7300F23203 /* SDWebImage */,
 				6ECB327C2D596C7300F23203 /* SDWebImageMapKit */,
+				6E84C41B2D59B8720038C34E /* OpenAI */,
+				6E84C41E2D59B8AC0038C34E /* OpenAISwift */,
 			);
 			productName = CryptoAPP;
 			productReference = 6EAE2DBB2D517D16001C9744 /* CryptoAPP.app */;
@@ -118,6 +124,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				6E84C41A2D59B8720038C34E /* XCRemoteSwiftPackageReference "OpenAI" */,
+				6E84C41D2D59B8AC0038C34E /* XCRemoteSwiftPackageReference "OpenAISwift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6EAE2DBC2D517D16001C9744 /* Products */;
@@ -345,6 +353,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6E84C41A2D59B8720038C34E /* XCRemoteSwiftPackageReference "OpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MacPaw/OpenAI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.2;
+			};
+		};
+		6E84C41D2D59B8AC0038C34E /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
 		6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
@@ -356,6 +380,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6E84C41B2D59B8720038C34E /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E84C41A2D59B8720038C34E /* XCRemoteSwiftPackageReference "OpenAI" */;
+			productName = OpenAI;
+		};
+		6E84C41E2D59B8AC0038C34E /* OpenAISwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E84C41D2D59B8AC0038C34E /* XCRemoteSwiftPackageReference "OpenAISwift" */;
+			productName = OpenAISwift;
+		};
 		6ECB327A2D596C7300F23203 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */;
