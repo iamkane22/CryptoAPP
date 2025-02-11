@@ -46,6 +46,7 @@ class HomeController: BaseVC {
         configureTable()
         configureViewModel()
         viewModel.getCoinMarketData()
+        viewModel.getCoinSmallToBig()
     }
     
     fileprivate func configureTable() {
