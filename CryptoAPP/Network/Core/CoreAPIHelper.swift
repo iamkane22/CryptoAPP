@@ -17,6 +17,7 @@ enum HttpMethods: String {
 
 enum BaseURL: String {
     case coingecko = "https://api.coingecko.com/api/v3/"
+    case cryptopanic = "https://cryptopanic.com/api/v1/"
 }
 
 final class CoreAPIHelper {

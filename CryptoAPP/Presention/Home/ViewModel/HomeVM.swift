@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum MarketSortOrder {
+    case descending
+    case ascending
+}
 final class HomeVM {
     
     enum viewState {
@@ -15,6 +19,7 @@ final class HomeVM {
     case succes
     case error(String)
     }
+
     private(set) var coinlist: CoinMarketDTO?
     private(set) var coinsSmallToBigList: CoinsSmallToBigDTO?
     private var coinListUse : CoinListUseCase
@@ -23,6 +28,11 @@ final class HomeVM {
     private var coinSmallToBigUse: CoinsSmallToBigUseCase
     private var coinMarketData: CoinMarketDTO?
     private var coinSmallToBigData: CoinsSmallToBigDTO?
+    private(set) var filteredData: [TitleSubtitleProtocol]?
+    
+    private(set) var newsList: NewsDTO?
+    private var newsUse: NewsUseCase
+    private var newsData: NewsDTO?
     var requestCallback : ((viewState) -> Void)?
     private var updateTimer: Timer?
     
@@ -30,12 +40,14 @@ final class HomeVM {
         coinListUse = CoinListAPIService()
         coinMarketUse = CoinMarketAPIService()
         coinSmallToBigUse = CoinsSmallToBigService()
+        newsUse = NewsAPIService()
     }
     
-    func startPolling(interval: TimeInterval = 15.0) {
+    func startPolling(interval: TimeInterval = 20.0) {
         print("Polling started" , Date())
         updateTimer?.invalidate()
         updateTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            self?.getCoinSmallToBig()
             self?.getCoinMarketData()
         }
     }
@@ -68,6 +80,7 @@ final class HomeVM {
             if let dto = dto {
                 self.coinMarketData = dto
                 self.coinlist = dto
+                self.filteredData = dto
                 self.requestCallback?(.succes)
                 print("Coin market data successfully fetched!", Date())
             } else if let error = error {
@@ -94,21 +107,43 @@ final class HomeVM {
             }
         }
     }
+    func getNews() {
+        requestCallback?(.loading)
+        newsUse.fetchNews{ [weak self] dto, error in
+            guard let self = self else { return }
+            self.requestCallback?(.loaded)
+            if let dto = dto {
+                self.newsData = dto
+                self.newsList = dto
+                self.requestCallback?(.succes)
+            } else if let error = error {
+                self.requestCallback?(.error(error))
+            }
+        }
+    }
+
+    
+    func applySort(order: MarketSortOrder) {
+            switch order {
+            case .descending:
+                if let marketData = coinMarketData {
+                    filteredData = marketData
+                }
+            case .ascending:
+                if let smallToBigData = coinSmallToBigData {
+                    filteredData = smallToBigData
+                }
+            }
+        }
     
     func getCoins() -> Int {
-        coinlist?.count ?? 0
-    }
+            return filteredData?.count ?? 0
+        }
+        
     func getProtocol(item: Int) -> TitleSubtitleProtocol? {
-        return coinlist?[item]
-    }
+            return filteredData?[item]
+        }
     
-    func getSmallToBigCoins() -> Int {
-        coinsSmallToBigList?.count ?? 0
-    }
-    
-//    func getSmallToBigProtocol(item: Int) -> TitleSubtitleProtocol? {
-//        return coinsSmallToBigList?[item]
-//    }
 
 }
 

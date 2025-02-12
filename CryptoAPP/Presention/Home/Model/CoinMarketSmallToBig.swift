@@ -55,6 +55,32 @@ struct CoinsSmallToBigElement: Codable {
         case priceChangePercentage24HInCurrency = "price_change_percentage_24h_in_currency"
         case priceChangePercentage7DInCurrency = "price_change_percentage_7d_in_currency"
     }
+    
+    
+}
+
+extension CoinsSmallToBigElement: TitleSubtitleProtocol {
+    var coinImageURL: String {
+        image ?? ""
+    }
+    
+    var nameCoin: String {
+        name ?? "not info"
+    }
+    
+    var valueCoin: String {
+        String(format: "%.2f $", currentPrice ?? 0.0)
+    }
+    
+    var changeCoin: String {
+        return String(priceChangePercentage24H ?? 0.0)
+    }
+    
+    var marketCapCoin: String {
+        return String(format: "%.0f $", Double(marketCap ?? 0))
+
+    }
+    
 }
 
 typealias CoinsSmallToBigDTO = [CoinsSmallToBigElement]
