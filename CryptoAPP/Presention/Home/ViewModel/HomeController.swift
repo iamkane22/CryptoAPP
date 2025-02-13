@@ -9,7 +9,7 @@ import UIKit
 
 class HomeController: BaseVC {
     private let viewModel: HomeVM
-    
+    private var updateTimer: Timer?
     init(viewModel: HomeVM) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -57,12 +57,12 @@ class HomeController: BaseVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.startPolling()
+        startPolling()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        viewModel.stopPolling()
+        stopPolling()
     }
         
     private func setupViews() {
@@ -115,6 +115,25 @@ class HomeController: BaseVC {
             }
         }
     }
+    
+    func startPolling(interval: TimeInterval = 15.0) {
+        print("Polling started", Date())
+        updateTimer?.invalidate()
+        updateTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            if self.segmentedControl.selectedSegmentIndex == 0 {
+                self.viewModel.getCoinMarketData()
+            } else {
+                self.viewModel.getCoinSmallToBig()
+            }
+        }
+    }
+    
+    func stopPolling() {
+        updateTimer?.invalidate()
+        updateTimer = nil
+    }
+
     
     // MARK: - Actions
     

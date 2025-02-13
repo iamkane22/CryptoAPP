@@ -44,20 +44,7 @@ final class HomeVM {
         coinSmallToBigUse = CoinsSmallToBigService()
         newsUse = NewsAPIService()
     }
-    
-    func startPolling(interval: TimeInterval = 20.0) {
-        print("Polling started" , Date())
-        updateTimer?.invalidate()
-        updateTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
-            self?.getCoinSmallToBig()
-            self?.getCoinMarketData()
-        }
-    }
-    
-    func stopPolling() {
-        updateTimer?.invalidate()
-        updateTimer = nil
-    }
+   
     
     func getCoinList() {
         requestCallback?(.loading)
