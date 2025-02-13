@@ -47,13 +47,12 @@ class HomeController: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTable()
         configureViewModel()
+        configureTable()
         setupViews()
         viewModel.getCoinMarketData()
         viewModel.getCoinSmallToBig()
-        viewModel.getNews()
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
