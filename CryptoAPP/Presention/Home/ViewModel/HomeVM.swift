@@ -69,7 +69,7 @@ final class HomeVM {
             if let dto = dto {
                 self.coinMarketData = dto
                 self.coinlist = dto
-                self.filteredData = dto
+//                self.filteredData = dto
                 self.requestCallback?(.succes)
                 print("Coin market data successfully fetched!", Date())
             } else if let error = error {
@@ -88,6 +88,7 @@ final class HomeVM {
             if let dto = dto {
                 self.coinSmallToBigData = dto
                 self.coinsSmallToBigList = dto
+//                self.filteredData = dto
                 self.requestCallback?(.succes)
                 print("Coin market data successfully fetched!", Date())
             } else if let error = error {

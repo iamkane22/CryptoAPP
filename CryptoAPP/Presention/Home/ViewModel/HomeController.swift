@@ -20,6 +20,7 @@ class HomeController: BaseVC {
     }
     
     // MARK: - UI Elements
+    
         private lazy var refreshControl: UIRefreshControl = {
         let refresh = UIRefreshControl()
         refresh.addTarget(self, action: #selector(reloadPage), for: .valueChanged)
@@ -69,25 +70,23 @@ class HomeController: BaseVC {
         view.backgroundColor = .white
         view.addSubview(tableView)
         view.addSubview(loadingView)
-        
-        let headerContainer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 60))
-        headerContainer.addSubview(segmentedControl)
+        view.addSubview(segmentedControl)
+//        let headerContainer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 60))
+//        headerContainer.addSubview(segmentedControl)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-            segmentedControl.centerYAnchor.constraint(equalTo: headerContainer.centerYAnchor),
-            segmentedControl.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor, constant: 16),
-            segmentedControl.trailingAnchor.constraint(equalTo: headerContainer.trailingAnchor, constant: -16)
-        ])
-        tableView.tableHeaderView = headerContainer
-            NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        NSLayoutConstraint.activate([
+                segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+                segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+                segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+
+                tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 16),
+                tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -240),
+
+                loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
     }
     
     fileprivate func configureTable() {
