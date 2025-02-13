@@ -19,17 +19,19 @@ final class HomeVM {
     case succes
     case error(String)
     }
-
+    //CoinMarket
     private(set) var coinlist: CoinMarketDTO?
-    private(set) var coinsSmallToBigList: CoinsSmallToBigDTO?
+    private var coinMarketUse: CoinMarketUseCase
+    private var coinMarketData: CoinMarketDTO?
+    //CoinList
     private var coinListUse : CoinListUseCase
     private var coinList : CoinListDTO?
-    private var coinMarketUse: CoinMarketUseCase
+    //CoinSmallToBig
+    private(set) var coinsSmallToBigList: CoinsSmallToBigDTO?
     private var coinSmallToBigUse: CoinsSmallToBigUseCase
-    private var coinMarketData: CoinMarketDTO?
     private var coinSmallToBigData: CoinsSmallToBigDTO?
     private(set) var filteredData: [TitleSubtitleProtocol]?
-    
+    //news
     private(set) var newsList: NewsDTO?
     private var newsUse: NewsUseCase
     private var newsData: NewsDTO?
