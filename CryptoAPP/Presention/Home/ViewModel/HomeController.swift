@@ -37,8 +37,6 @@ class HomeController: BaseVC {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
@@ -110,6 +108,8 @@ class HomeController: BaseVC {
     fileprivate func configureTable() {
         tableView.delegate = self
         tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         tableView.register(cell: CryptoCell.self)
         tableView.register(cell: CryptoSmallToBigCell.self)
     }

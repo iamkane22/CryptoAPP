@@ -54,6 +54,14 @@ final class NewsCellForHome: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(model: NewsProtocol) {
+        thumbnailImageView.loadImageURL(url: model.thumbnailimage)
+        titleLabel.text = model.titleNews
+        domainLabel.text = model.domainNews
+        dateLabel.text = model.dateNews
+        sourceLabel.text = model.sourceNews
+    }
+    
     private func setupUI() {
             contentView.backgroundColor = .white
             contentView.layer.cornerRadius = 8
@@ -85,14 +93,9 @@ final class NewsCellForHome: UICollectionViewCell {
                 sourceLabel.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor),
                 sourceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4)
             ])
+        
         }
-    func configure(model: NewsProtocol) {
-        let thumbnailImageView = model.thumbnailimage
-        let titleLabel = model.titleNews
-        let domainLabel = model.domainNews
-        let dateLabel = model.dateNews
-        let sourceLabel = model.sourceNews
-    }
+    
 }
 
 
