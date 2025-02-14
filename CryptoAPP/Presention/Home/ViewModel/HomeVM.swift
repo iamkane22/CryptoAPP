@@ -70,8 +70,8 @@ final class HomeVM {
                 self.coinMarketData = dto
                 self.coinlist = dto
 //                self.filteredData = dto
-                self.requestCallback?(.succes)
-                print("Coin market data successfully fetched!", Date())
+//                self.requestCallback?(.succes)
+//                print("Coin market data successfully fetched!", Date())
             } else if let error = error {
                 self.requestCallback?(.error(error))
                 print("Error fetching coin market data: \(error)")
@@ -89,8 +89,8 @@ final class HomeVM {
                 self.coinSmallToBigData = dto
                 self.coinsSmallToBigList = dto
 //                self.filteredData = dto
-                self.requestCallback?(.succes)
-                print("Coin market data successfully fetched!", Date())
+//                self.requestCallback?(.succes)
+//                print("Coin market data successfully fetched!", Date())
             } else if let error = error {
                 self.requestCallback?(.error(error))
                 print("Error fetching coin market data: \(error)")
@@ -133,6 +133,14 @@ final class HomeVM {
     func getProtocol(item: Int) -> TitleSubtitleProtocol? {
             return filteredData?[item]
         }
+    
+    func getNewsList() -> Int {
+        newsList?.count ?? 0
+    }
+    
+    func getNewsProtocol(item: Int) -> NewsProtocol? {
+        newsList?[item]
+    }
     
 
 }

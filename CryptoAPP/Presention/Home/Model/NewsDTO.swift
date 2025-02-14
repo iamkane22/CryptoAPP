@@ -22,9 +22,35 @@ struct NewsSource: Codable {
     let title: String
 }
 
+extension NewsItem: NewsProtocol {
+    var thumbnailimage: String {
+        thumbnail ?? ""
+    }
+    
+    var titleNews: String {
+        title
+    }
+    
+    var domainNews: String {
+        domain
+    }
+    
+    var dateNews: String {
+        created_at
+    }
+    
+    var sourceNews: String {
+        return ""
+    }
+    
+    
+}
+
+
 // MARK: - NewsResponse
 struct NewsResponse: Codable {
     let results: [NewsItem]
 }
 
 typealias NewsDTO = [NewsItem]
+

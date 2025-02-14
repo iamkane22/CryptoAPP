@@ -32,6 +32,19 @@ class HomeController: BaseVC {
         tv.refreshControl = self.refreshControl
         return tv
     }()
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
+        collectionView.register(cell: NewsCellForHome.self)
+        return collectionView
+    }()
         private lazy var segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Coxdan Aza", "Azdan Coxa"])
         control.selectedSegmentIndex = 0
@@ -52,7 +65,7 @@ class HomeController: BaseVC {
         setupViews()
         viewModel.getCoinMarketData()
         viewModel.getCoinSmallToBig()
-
+        viewModel.getNews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +83,7 @@ class HomeController: BaseVC {
         view.addSubview(tableView)
         view.addSubview(loadingView)
         view.addSubview(segmentedControl)
+        view.addSubview(collectionView)
 //        let headerContainer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 60))
 //        headerContainer.addSubview(segmentedControl)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
@@ -81,10 +95,15 @@ class HomeController: BaseVC {
                 tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 16),
                 tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -240),
+                tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300),
 
                 loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+                loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                
+                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                
             ])
     }
     
@@ -174,4 +193,19 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         50
     }
+}
+
+extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.getNewsList()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell: NewsCellForHome = collectionView.dequeue(for: indexPath)
+        guard let viewModel = viewModel.getNewsProtocol(item: indexPath.row) else { return cell }
+        cell.configure(model: viewModel)
+        return cell
+    }
+    
+    
 }
