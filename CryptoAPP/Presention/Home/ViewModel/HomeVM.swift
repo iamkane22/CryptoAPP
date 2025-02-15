@@ -7,11 +7,19 @@
 
 import Foundation
 
-enum MarketSortOrder {
+enum MarketSortOrder: String {
     case descending
     case ascending
 }
+
 final class HomeVM {
+    
+    var type: MarketSortOrder = .descending {
+        didSet {
+            getCoinMarketData()
+            getCoinSmallToBig()
+        }
+    }
     
     enum viewState {
     case loading
@@ -69,8 +77,11 @@ final class HomeVM {
             if let dto = dto {
                 self.coinMarketData = dto
                 self.coinlist = dto
+                if self.type == .descending {
+                self.filteredData = dto
+                }
 //                self.filteredData = dto
-//                self.requestCallback?(.succes)
+                self.requestCallback?(.succes)
 //                print("Coin market data successfully fetched!", Date())
             } else if let error = error {
                 self.requestCallback?(.error(error))
@@ -135,7 +146,7 @@ final class HomeVM {
         }
     
     func getNewsList() -> Int {
-        newsList?.count ?? 0
+        newsList?.count ?? 3
     }
     
     func getNewsProtocol(item: Int) -> NewsProtocol? {

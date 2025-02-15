@@ -6,7 +6,7 @@
 //
 import UIKit
 
-let key = "?auth_token=4fb1777c760f46d509a1a985e320e214667949a7"
+let key = "?auth_token=4fb1777c760f46d509a1a985e320e214667949a7&public=true"
 
 enum NewsListAPIHelper {
     case news

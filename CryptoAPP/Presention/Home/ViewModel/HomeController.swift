@@ -38,8 +38,8 @@ class HomeController: BaseVC {
         layout.minimumLineSpacing = 0
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isPagingEnabled = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = .clear
         collectionView.register(cell: NewsCellForHome.self)
         return collectionView
     }()
@@ -61,8 +61,8 @@ class HomeController: BaseVC {
         configureViewModel()
         configureTable()
         setupViews()
-        viewModel.getCoinMarketData()
-        viewModel.getCoinSmallToBig()
+        collectionView.backgroundColor = .red
+        viewModel.type = .descending
         viewModel.getNews()
     }
     
@@ -98,9 +98,10 @@ class HomeController: BaseVC {
                 loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                 
-                collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-                collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+                collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+                collectionView.heightAnchor.constraint(equalToConstant: 150)
                 
             ])
     }
@@ -126,6 +127,7 @@ class HomeController: BaseVC {
                     self.refreshControl.endRefreshing()
                 case .succes:
                     self.tableView.reloadData()
+                    self.collectionView.reloadData()
                 case .error(let message):
                     self.showMessage(title: "Xeta", message: message)
                 }
@@ -133,7 +135,7 @@ class HomeController: BaseVC {
         }
     }
     
-    func startPolling(interval: TimeInterval = 15.0) {
+    func startPolling(interval: TimeInterval = 20.0) {
         print("Polling started", Date())
         updateTimer?.invalidate()
         updateTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
