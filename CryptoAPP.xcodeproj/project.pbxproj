@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E610ACA2D6535730026F09F /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6E610AC92D6535730026F09F /* SDWebImage */; };
+		6E610ACC2D6535730026F09F /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6E610ACB2D6535730026F09F /* SDWebImageMapKit */; };
+		6E610B952D655A420026F09F /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 6E610B942D655A420026F09F /* DGCharts */; };
+		6E6E15F42D737D0F00E18BBA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6E15F32D737D0F00E18BBA /* FirebaseAuth */; };
+		6E6E15F62D737D1D00E18BBA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6E15F52D737D1D00E18BBA /* FirebaseFirestore */; };
+		6E6E15F82D737D2A00E18BBA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6E15F72D737D2A00E18BBA /* FirebaseStorage */; };
+		6E6E15FB2D73865600E18BBA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6E15FA2D73865600E18BBA /* GoogleSignIn */; };
+		6E6E15FD2D73865600E18BBA /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6E6E15FC2D73865600E18BBA /* GoogleSignInSwift */; };
 		6E84C41C2D59B8720038C34E /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 6E84C41B2D59B8720038C34E /* OpenAI */; };
 		6E84C41F2D59B8AC0038C34E /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6E84C41E2D59B8AC0038C34E /* OpenAISwift */; };
-		6ECB327B2D596C7300F23203 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 6ECB327A2D596C7300F23203 /* SDWebImage */; };
-		6ECB327D2D596C7300F23203 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6ECB327C2D596C7300F23203 /* SDWebImageMapKit */; };
+		6E9202ED2D6E9443003C0A60 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6E9202EC2D6E9443003C0A60 /* FirebaseCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,19 +51,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E84C41F2D59B8AC0038C34E /* OpenAISwift in Frameworks */,
-				6ECB327D2D596C7300F23203 /* SDWebImageMapKit in Frameworks */,
 				6E84C41C2D59B8720038C34E /* OpenAI in Frameworks */,
-				6ECB327B2D596C7300F23203 /* SDWebImage in Frameworks */,
+				6E6E15F82D737D2A00E18BBA /* FirebaseStorage in Frameworks */,
+				6E610B952D655A420026F09F /* DGCharts in Frameworks */,
+				6E610ACC2D6535730026F09F /* SDWebImageMapKit in Frameworks */,
+				6E6E15FB2D73865600E18BBA /* GoogleSignIn in Frameworks */,
+				6E9202ED2D6E9443003C0A60 /* FirebaseCore in Frameworks */,
+				6E6E15F62D737D1D00E18BBA /* FirebaseFirestore in Frameworks */,
+				6E6E15F42D737D0F00E18BBA /* FirebaseAuth in Frameworks */,
+				6E610ACA2D6535730026F09F /* SDWebImage in Frameworks */,
+				6E6E15FD2D73865600E18BBA /* GoogleSignInSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E9202EB2D6E9443003C0A60 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6EAE2DB22D517D16001C9744 = {
 			isa = PBXGroup;
 			children = (
 				6EAE2DBD2D517D16001C9744 /* CryptoAPP */,
+				6E9202EB2D6E9443003C0A60 /* Frameworks */,
 				6EAE2DBC2D517D16001C9744 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,10 +111,17 @@
 			);
 			name = CryptoAPP;
 			packageProductDependencies = (
-				6ECB327A2D596C7300F23203 /* SDWebImage */,
-				6ECB327C2D596C7300F23203 /* SDWebImageMapKit */,
 				6E84C41B2D59B8720038C34E /* OpenAI */,
 				6E84C41E2D59B8AC0038C34E /* OpenAISwift */,
+				6E610AC92D6535730026F09F /* SDWebImage */,
+				6E610ACB2D6535730026F09F /* SDWebImageMapKit */,
+				6E610B942D655A420026F09F /* DGCharts */,
+				6E9202EC2D6E9443003C0A60 /* FirebaseCore */,
+				6E6E15F32D737D0F00E18BBA /* FirebaseAuth */,
+				6E6E15F52D737D1D00E18BBA /* FirebaseFirestore */,
+				6E6E15F72D737D2A00E18BBA /* FirebaseStorage */,
+				6E6E15FA2D73865600E18BBA /* GoogleSignIn */,
+				6E6E15FC2D73865600E18BBA /* GoogleSignInSwift */,
 			);
 			productName = CryptoAPP;
 			productReference = 6EAE2DBB2D517D16001C9744 /* CryptoAPP.app */;
@@ -123,9 +152,12 @@
 			mainGroup = 6EAE2DB22D517D16001C9744;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				6E84C41A2D59B8720038C34E /* XCRemoteSwiftPackageReference "OpenAI" */,
 				6E84C41D2D59B8AC0038C34E /* XCRemoteSwiftPackageReference "OpenAISwift" */,
+				6E610AC82D6535730026F09F /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				6E610B932D655A410026F09F /* XCRemoteSwiftPackageReference "Charts" */,
+				6E9202EA2D6E8B48003C0A60 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				6E6E15F92D73865600E18BBA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6EAE2DBC2D517D16001C9744 /* Products */;
@@ -353,6 +385,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6E610AC82D6535730026F09F /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.20.0;
+			};
+		};
+		6E610B932D655A410026F09F /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
+		6E6E15F92D73865600E18BBA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		6E84C41A2D59B8720038C34E /* XCRemoteSwiftPackageReference "OpenAI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MacPaw/OpenAI";
@@ -369,17 +425,57 @@
 				minimumVersion = 1.4.1;
 			};
 		};
-		6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		6E9202EA2D6E8B48003C0A60 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.20.0;
+				minimumVersion = 11.9.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6E610AC92D6535730026F09F /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E610AC82D6535730026F09F /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		6E610ACB2D6535730026F09F /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E610AC82D6535730026F09F /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+		6E610B942D655A420026F09F /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E610B932D655A410026F09F /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
+		};
+		6E6E15F32D737D0F00E18BBA /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E9202EA2D6E8B48003C0A60 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		6E6E15F52D737D1D00E18BBA /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E9202EA2D6E8B48003C0A60 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		6E6E15F72D737D2A00E18BBA /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E9202EA2D6E8B48003C0A60 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		6E6E15FA2D73865600E18BBA /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E6E15F92D73865600E18BBA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		6E6E15FC2D73865600E18BBA /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E6E15F92D73865600E18BBA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		6E84C41B2D59B8720038C34E /* OpenAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6E84C41A2D59B8720038C34E /* XCRemoteSwiftPackageReference "OpenAI" */;
@@ -390,15 +486,10 @@
 			package = 6E84C41D2D59B8AC0038C34E /* XCRemoteSwiftPackageReference "OpenAISwift" */;
 			productName = OpenAISwift;
 		};
-		6ECB327A2D596C7300F23203 /* SDWebImage */ = {
+		6E9202EC2D6E9443003C0A60 /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
-		};
-		6ECB327C2D596C7300F23203 /* SDWebImageMapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6ECB32792D596C7300F23203 /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImageMapKit;
+			package = 6E9202EA2D6E8B48003C0A60 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

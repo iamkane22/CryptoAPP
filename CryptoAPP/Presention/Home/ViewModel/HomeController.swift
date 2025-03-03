@@ -5,11 +5,15 @@
 //  Created by Kenan on 04.02.25.
 //
 
+//ededededede
 import UIKit
 
 class HomeController: BaseVC {
+  
+    
     private let viewModel: HomeVM
     private var updateTimer: Timer?
+    private var autoScrollTimer: Timer?
     init(viewModel: HomeVM) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -26,6 +30,16 @@ class HomeController: BaseVC {
         refresh.addTarget(self, action: #selector(reloadPage), for: .valueChanged)
         return refresh
     }()
+    private lazy var newsLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.text = "BreakingNews"
+        label.backgroundColor = .red
+        label.layer.cornerRadius = 12
+        return label
+    }()
         private lazy var tableView: UITableView = {
         let tv = UITableView(frame: .zero, style: .grouped)
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -35,14 +49,16 @@ class HomeController: BaseVC {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 16
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.isPagingEnabled = true
+        collectionView.isPagingEnabled = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(cell: NewsCellForHome.self)
         return collectionView
     }()
+
         private lazy var segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Coxdan Aza", "Azdan Coxa"])
         control.selectedSegmentIndex = 0
@@ -61,7 +77,6 @@ class HomeController: BaseVC {
         configureViewModel()
         configureTable()
         setupViews()
-        collectionView.backgroundColor = .red
         viewModel.type = .descending
         viewModel.getNews()
     }
@@ -69,11 +84,13 @@ class HomeController: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         startPolling()
+        startAutoScroll()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         stopPolling()
+        stopAutoScroll()
     }
         
     private func setupViews() {
@@ -82,9 +99,9 @@ class HomeController: BaseVC {
         view.addSubview(loadingView)
         view.addSubview(segmentedControl)
         view.addSubview(collectionView)
-//        let headerContainer = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 60))
-//        headerContainer.addSubview(segmentedControl)
+        view.addSubview(newsLabel)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        newsLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
                 segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
                 segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -97,11 +114,12 @@ class HomeController: BaseVC {
 
                 loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                
+                newsLabel.bottomAnchor.constraint(equalTo: collectionView.topAnchor, constant: 1),
+                newsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
                 collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-                collectionView.heightAnchor.constraint(equalToConstant: 150)
+                collectionView.heightAnchor.constraint(equalToConstant: 200)
                 
             ])
     }
@@ -168,6 +186,26 @@ class HomeController: BaseVC {
         }
         tableView.reloadData()
     }
+    
+    func startAutoScroll() {
+        autoScrollTimer = Timer.scheduledTimer(timeInterval: 5.0,target: self, selector: #selector(scrollToNextItem), userInfo: nil, repeats: true)
+    }
+
+    func stopAutoScroll() {
+        autoScrollTimer?.invalidate()
+        autoScrollTimer = nil
+    }
+
+    @objc private func scrollToNextItem() {
+        let itemCount = viewModel.getNewsList()
+        guard itemCount > 0 else { return }
+        let visibleIndexPaths = collectionView.indexPathsForVisibleItems
+        if let currentIndexPath = visibleIndexPaths.first {
+            let nextItem = (currentIndexPath.item + 1) % itemCount
+            let nextIndexPath = IndexPath(item: nextItem, section: 0)
+            collectionView.scrollToItem(at: nextIndexPath, at: .centeredHorizontally, animated: true)
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
@@ -195,7 +233,13 @@ extension HomeController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         50
     }
-}
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row , indexPath.section)
+        viewModel.navigateDetail(for: indexPath.row)
+                }
+    }
+
 
 extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -209,5 +253,23 @@ extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFl
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = collectionView.bounds.width
+        let height = collectionView.bounds.height
+        return CGSize(width: width, height: height)
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let item = viewModel.getNewsProtocol(item: indexPath.row) else { return }
+        let urlString = item.newsURL
+        if let url = URL(string: urlString), !urlString.isEmpty {
+            UIApplication.shared.open(url)
+        }
+        
+        
+        
+    }
 }

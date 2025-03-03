@@ -24,7 +24,7 @@ class AppCoordinator : Coordinator {
         if isLogin {
             showTabBar()
         } else {
-//            showAuth()
+            showAuth()
         }
     }
     
@@ -60,11 +60,11 @@ class AppCoordinator : Coordinator {
         coordinator.start()
     }
     
-//    fileprivate func showAuth() {
-//        children.removeAll()
-//        let authCoordinator = AuthCordinator(navigationController: navigationController)
-//        children.append(authCoordinator)
-//        authCoordinator.parentCoordinator = self
-//        authCoordinator.start()
-//    }
+    fileprivate func showAuth() {
+        children.removeAll()
+        let authCoordinator = AuthCordinator(navigationController: navigationController)
+        children.append(authCoordinator)
+        authCoordinator.parentCoordinator = self
+        authCoordinator.start()
+    }
 }

@@ -19,7 +19,14 @@ final class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let controller = HomeController(viewModel: .init())
+        let controller = HomeController(viewModel: .init(navigation: self))
         showController(vc: controller)
+    }
+}
+extension HomeCoordinator: HomeNav {
+    func showCryptoDetail(detail: DetailModel) {
+        let detailVM = CryptoDetailVM(navigation: self, model: detail)
+        let controller = CrytoDetailVC(viewModel: detailVM)
+        navigationController.pushViewController(controller, animated: true)
     }
 }

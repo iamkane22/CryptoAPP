@@ -5,15 +5,22 @@
 //  Created by Kenan on 08.02.25.
 //
 
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
+//
+//   let coinMarketDTO = try? JSONDecoder().decode(CoinMarketDTO.self, from: jsonData)
+
 import Foundation
 
+// MARK: - CoinMarketDTOElement
 struct CoinMarketDTOElement: Codable {
     let id, symbol, name: String?
     let image: String?
     let currentPrice: Double?
-    let marketCap, marketCapRank, fullyDilutedValuation, totalVolume: Int?
-    let high24H, low24H, priceChange24H, priceChangePercentage24H: Double?
-    let marketCapChange24H, marketCapChangePercentage24H, circulatingSupply, totalSupply: Double?
+    let marketCap, marketCapRank, fullyDilutedValuation: Int?
+    let totalVolume, high24H, low24H, priceChange24H: Double?
+    let priceChangePercentage24H, marketCapChange24H, marketCapChangePercentage24H, circulatingSupply: Double?
+    let totalSupply: Double?
     let maxSupply: Double?
     let ath, athChangePercentage: Double?
     let athDate: String?
@@ -21,7 +28,7 @@ struct CoinMarketDTOElement: Codable {
     let atlDate: String?
     let roi: Roi?
     let lastUpdated: String?
-    let priceChangePercentage1HInCurrency, priceChangePercentage24HInCurrency, priceChangePercentage7DInCurrency: Double?
+    let priceChangePercentage1HInCurrency: Double?
 
     enum CodingKeys: String, CodingKey {
         case id, symbol, name, image
@@ -48,10 +55,26 @@ struct CoinMarketDTOElement: Codable {
         case roi
         case lastUpdated = "last_updated"
         case priceChangePercentage1HInCurrency = "price_change_percentage_1h_in_currency"
-        case priceChangePercentage24HInCurrency = "price_change_percentage_24h_in_currency"
-        case priceChangePercentage7DInCurrency = "price_change_percentage_7d_in_currency"
     }
 }
+
+// MARK: - Roi
+struct Roi: Codable {
+    let times: Double?
+    let currency: Currency?
+    let percentage: Double?
+}
+
+enum Currency: String, Codable {
+    case btc = "btc"
+    case eth = "eth"
+    case usd = "usd"
+}
+
+typealias CoinMarketDTO = [CoinMarketDTOElement]
+
+
+
 extension CoinMarketDTOElement: TitleSubtitleProtocol {
     var coinImageURL: String {
         image ?? ""
@@ -71,22 +94,6 @@ extension CoinMarketDTOElement: TitleSubtitleProtocol {
     
     var marketCapCoin: String {
         return String(format: "%.0f $", Double(marketCap ?? 0))
-
+        
     }
-    
 }
-
-
-struct Roi: Codable {
-    let times: Double?
-    let currency: Currency?
-    let percentage: Double?
-}
-
-enum Currency: String, Codable {
-    case btc = "btc"
-    case eth = "eth"
-    case usd = "usd"
-}
-
-typealias CoinMarketDTO = [CoinMarketDTOElement]

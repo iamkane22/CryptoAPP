@@ -1,55 +1,88 @@
+// NewsDTO.swift
 import Foundation
 
-// MARK: - NewsResponse
-struct NewsResponse: Codable {
-    let results: [NewsItem]
-}
+// MARK: - NewsDTO (Top-level)
+struct NewsDTO: Codable {
+    let type: Int?
+    let message: String?
+    let data: [Datum]?
+    let rateLimit: RateLimit?
+    let hasWarning: Bool?
 
-// MARK: - NewsItem
-struct NewsItem: Codable {
-    let title: String
-    let url: String
-    let domain: String
-    let createdAt: String
-    let source: NewsSource
-    let thumbnails: Thumbnails?
-    let currencies: [NewsCurrency]?
-    
     enum CodingKeys: String, CodingKey {
-        case title, url, domain
-        case createdAt = "created_at"
-        case source, thumbnails, currencies
+        case type = "Type"
+        case message = "Message"
+        case data = "Data"
+        case rateLimit = "RateLimit"
+        case hasWarning = "HasWarning"
     }
 }
 
-// MARK: - Thumbnails
-struct Thumbnails: Codable {
-    let thumbnail: String?
+// MARK: - Datum (Xəbər maddəsi)
+struct Datum: Codable {
+    let id: String?
+    let guid: String?
+    let publishedOn: Int?
+    let imageurl: String?
+    let title: String?
+    let url: String?
+    let body: String?
+    let tags: String?
+    let lang: String?
+    let upvotes: String?
+    let downvotes: String?
+    let categories: String?
+    let source: String?
+    let sourceInfo: SourceInfo?
+
+    enum CodingKeys: String, CodingKey {
+        case id, guid
+        case publishedOn = "published_on"
+        case imageurl, title, url, body, tags, lang, upvotes, downvotes, categories, source
+        case sourceInfo = "source_info"
+    }
 }
 
-// MARK: - NewsSource
-struct NewsSource: Codable {
-    let title: String
+// MARK: - SourceInfo
+struct SourceInfo: Codable {
+    let name: String?
+    let img: String?
+    let lang: String?
 }
 
-// MARK: - NewsCurrency (əvvəlki Currency)
-struct NewsCurrency: Codable {
-    let code: String
-    let title: String
-    let slug: String
-    let url: String
-}
+// MARK: - RateLimit (Boş obyekt)
+struct RateLimit: Codable {}
 
-// MARK: - NewsProtocol
-extension NewsItem: NewsProtocol {
+extension Datum: NewsProtocol {
     var thumbnailimage: String {
-        thumbnails?.thumbnail ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmEljB7i2C_pSP088wDmugps0MKOovpU-XjA&s"
+       imageurl ?? ""
     }
     
-    var titleNews: String { title }
-    var domainNews: String { domain }
-    var dateNews: String { createdAt }
-    var sourceNews: String { source.title }
-}
+    var titleNews: String {
+        title ?? ""
 
-typealias NewsDTO = [NewsItem]
+    }
+    
+    var domainNews: String {
+        source ?? ""
+    }
+    
+    var dateNews: String {
+        guard let published = publishedOn else { return "" }
+               let date = Date(timeIntervalSince1970: TimeInterval(published))
+               let formatter = DateFormatter()
+               formatter.dateFormat = "yyyy-MM-dd HH:mm"
+               return formatter.string(from: date)
+    }
+    
+    var  newsURL: String {
+        url ?? ""
+    }
+    
+    var sourceNews: String {
+      sourceInfo?.name ?? ""
+
+    }
+    
+    
+}

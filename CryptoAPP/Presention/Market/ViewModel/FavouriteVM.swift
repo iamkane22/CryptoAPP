@@ -1,11 +1,11 @@
 //
-//  MarketVM.swift
+//  FavouriteVM.swift
 //  CryptoAPP
 //
 //  Created by Kenan on 05.02.25.
 //
 
-final class MarketVM {
+final class FavouriteVM {
     init () {
         
     }

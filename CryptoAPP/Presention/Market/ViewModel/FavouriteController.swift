@@ -1,5 +1,5 @@
 //
-//  MarketController.swift
+//  FavouriteController.swift
 //  CryptoAPP
 //
 //  Created by Kenan on 06.02.25.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class MarketController: UIViewController {
+final class FavouriteController: UIViewController {
     
-    private let viewModel: MarketVM
-    init(viewModel: MarketVM) {
+    private let viewModel: FavouriteVM
+    init(viewModel: FavouriteVM) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

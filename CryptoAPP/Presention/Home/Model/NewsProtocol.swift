@@ -11,6 +11,7 @@ protocol NewsProtocol {
     var domainNews: String { get }
     var dateNews: String { get }
     var sourceNews: String { get }
+    var newsURL: String { get }
 }
 
 //contentView.addSubview(thumbnailImageView)

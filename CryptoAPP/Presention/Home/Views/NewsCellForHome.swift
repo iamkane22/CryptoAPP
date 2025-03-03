@@ -9,28 +9,44 @@ import UIKit
 
 
 final class NewsCellForHome: UICollectionViewCell {
+    private let containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        // Kölgə effekti
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowOpacity = 0.2
+        view.layer.shadowRadius = 4
+        view.layer.cornerRadius = 12
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let thumbnailImageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
-        image.layer.cornerRadius = 4
+        image.layer.cornerRadius = 12
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 14)
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private let domainLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = .gray
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.textColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 10)
@@ -38,6 +54,7 @@ final class NewsCellForHome: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private let sourceLabel: UILabel = {
         let label1 = UILabel()
         label1.font = UIFont.italicSystemFont(ofSize: 10)
@@ -45,6 +62,7 @@ final class NewsCellForHome: UICollectionViewCell {
         label1.translatesAutoresizingMaskIntoConstraints = false
         return label1
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -63,39 +81,41 @@ final class NewsCellForHome: UICollectionViewCell {
     }
     
     private func setupUI() {
-            contentView.backgroundColor = .white
-            contentView.layer.cornerRadius = 8
-            contentView.layer.masksToBounds = true
-            
-            contentView.addSubview(thumbnailImageView)
-            contentView.addSubview(titleLabel)
-            contentView.addSubview(domainLabel)
-            contentView.addSubview(dateLabel)
-            contentView.addSubview(sourceLabel)
-            
-            NSLayoutConstraint.activate([
-                thumbnailImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-                thumbnailImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
-                thumbnailImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
-                thumbnailImageView.heightAnchor.constraint(equalToConstant: 80),
-                
-                titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 4),
-                titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
-                titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
-                
-                domainLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
-                domainLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
-                domainLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
-                
-                dateLabel.topAnchor.constraint(equalTo: domainLabel.bottomAnchor, constant: 2),
-                dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
-                dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
-                sourceLabel.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor),
-                sourceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4)
-            ])
+        // Əsas containerView əlavə edirik
+        contentView.addSubview(containerView)
+        containerView.addSubview(thumbnailImageView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(domainLabel)
+        containerView.addSubview(dateLabel)
+        containerView.addSubview(sourceLabel)
         
-        }
-    
+        // containerView bütün hüceyrəni əhatə etsin
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+        ])
+        
+        NSLayoutConstraint.activate([
+            thumbnailImageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            thumbnailImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            thumbnailImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            thumbnailImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.55),
+            
+            titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 8),
+            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
+            
+            domainLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            domainLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            domainLabel.trailingAnchor.constraint(lessThanOrEqualTo: containerView.centerXAnchor),
+            
+            dateLabel.topAnchor.constraint(equalTo: domainLabel.bottomAnchor, constant: 4),
+            dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            
+            sourceLabel.topAnchor.constraint(equalTo: domainLabel.bottomAnchor, constant: 4),
+            sourceLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
+        ])
+    }
 }
-
-

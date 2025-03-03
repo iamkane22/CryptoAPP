@@ -40,13 +40,14 @@ final class HomeVM {
     private var coinSmallToBigData: CoinsSmallToBigDTO?
     private(set) var filteredData: [TitleSubtitleProtocol]?
     //news
-    private(set) var newsList: NewsDTO?
+    private(set) var newsListt: NewsDTO?
     private var newsUse: NewsUseCase
     private var newsData: NewsDTO?
     var requestCallback : ((viewState) -> Void)?
     private var updateTimer: Timer?
-    
-    init() {
+    weak var navigation: HomeNav?
+    init(navigation: HomeNav) {
+        self.navigation = navigation
         coinListUse = CoinListAPIService()
         coinMarketUse = CoinMarketAPIService()
         coinSmallToBigUse = CoinsSmallToBigService()
@@ -115,7 +116,7 @@ final class HomeVM {
             self.requestCallback?(.loaded)
             if let dto = dto {
                 self.newsData = dto
-                self.newsList = dto
+                self.newsListt = dto
                 self.requestCallback?(.succes)
             } else if let error = error {
                 self.requestCallback?(.error(error))
@@ -146,13 +147,51 @@ final class HomeVM {
         }
     
     func getNewsList() -> Int {
-        newsList?.count ?? 3
+        newsData?.data?.count ?? 4
     }
     
     func getNewsProtocol(item: Int) -> NewsProtocol? {
-        newsList?[item]
+        newsData?.data?[item]
     }
     
-
+    func showDetail(detail: DetailModel) {
+        navigation?.showCryptoDetail(detail: detail)
+    }
+    
+    func navigateDetail(for index: Int) {
+            switch type {
+            case .descending:
+                if let coin = coinMarketData?[index] {
+                    let detail = DetailModel(
+                        coinID: coin.id,
+                        coinName: coin.name,
+                        coinPrice: String(coin.currentPrice ?? 0.0),
+                        coinImageURL: coin.coinImageURL,
+                        high24H: String(coin.high24H ?? 4.0),
+                        low24H: String(coin.low24H ?? 0.0),
+                        marketCap: coin.marketCapCoin,
+                        volume: String(coin.totalVolume ?? 3.0)
+                    )
+                    navigation?.showCryptoDetail(detail: detail)
+                }
+            case .ascending:
+                if let coin = coinSmallToBigData?[index] {
+                    let detail = DetailModel(
+                        coinID: coin.id,
+                        coinName: coin.name,
+                        coinPrice: String(coin.currentPrice ?? 0.0),
+                        coinImageURL: coin.coinImageURL,
+                        high24H: String(coin.high24H ?? 4.0),
+                        low24H: String(coin.low24H ?? 0.0),
+                        marketCap: coin.marketCapCoin,
+                        volume: String(coin.totalVolume ?? 3.0)
+                    )
+                    navigation?.showCryptoDetail(detail: detail)
+                }
+            }
+        }
 }
+    
+
+
 
