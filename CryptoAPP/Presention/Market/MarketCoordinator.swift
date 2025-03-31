@@ -7,7 +7,7 @@
 
 import UIKit.UINavigationController
 
-final class MarketCoordinator: Coordinator {
+final class FavouriteCoordinator: Coordinator {
     
     var parentCoordinator: Coordinator?
     
@@ -19,7 +19,7 @@ final class MarketCoordinator: Coordinator {
     }
     
     func start() {
-        let controller = MarketController(viewModel: .init())
+        let controller = CurrencyController(viewModel: .init())
         showController(vc: controller)
     }
 }

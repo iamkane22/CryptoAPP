@@ -6,7 +6,6 @@
 //
 
 import UIKit.UINavigationController
-
 final class TabBarCoordinator: Coordinator {
     
     var parentCoordinator: Coordinator?
@@ -18,7 +17,7 @@ final class TabBarCoordinator: Coordinator {
     
     private var homeCoordinator: HomeCoordinator?
     private var newsCoordinator: NewsCoordinator?
-    private var marketcoordinator: MarketCoordinator?
+    private var marketcoordinator: FavouriteCoordinator?
     //    private var downloadCoordinator: DownloadCoordinator?
     //
     init(navigationController: UINavigationController) {
@@ -40,7 +39,7 @@ final class TabBarCoordinator: Coordinator {
         // market
         
         let marketNavigation = UINavigationController()
-        marketcoordinator = MarketCoordinator(navigationController: marketNavigation)
+        marketcoordinator = FavouriteCoordinator(navigationController: marketNavigation)
         marketcoordinator?.start()
         marketcoordinator?.parentCoordinator = parentCoordinator
         
@@ -68,7 +67,7 @@ final class TabBarCoordinator: Coordinator {
         
         parentCoordinator?.children.append(homeCoordinator ?? HomeCoordinator(navigationController: UINavigationController()))
         
-        parentCoordinator?.children.append(marketcoordinator ?? MarketCoordinator(navigationController: UINavigationController()))
+        parentCoordinator?.children.append(marketcoordinator ?? FavouriteCoordinator(navigationController: UINavigationController()))
         
         parentCoordinator?.children.append(newsCoordinator ?? NewsCoordinator(navigationController: UINavigationController()))
         
